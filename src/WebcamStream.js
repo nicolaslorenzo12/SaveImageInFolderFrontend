@@ -19,9 +19,10 @@ const WebcamCapture = () => {
 
       if (!exists) {
         // Add the new folder to the folders list
-        setFolders(prevFolders => [...prevFolders, selectedFolder]);
-        setSelectedFolder('');
+        setFolders(prevFolders => [...prevFolders, selectedFolder]);       
       }
+
+      setSelectedFolder('');
     } catch (error) {
       console.error('Error checking or adding folder:', error);
     }
@@ -40,7 +41,7 @@ const WebcamCapture = () => {
     };
 
     fetchFolders();
-  }, [folders]); // Empty dependency array ensures this runs once after initial render
+  }, []); 
 
   return (
     <div>
