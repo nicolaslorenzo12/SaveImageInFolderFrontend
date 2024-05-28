@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { sendImageToBackend } from './SendPicture';
+import { fetchIfFolderExists } from './api/FetchIfFolderExists';
 
 const WebcamCapture = () => {
   const [selectedFolder, setSelectedFolder] = useState('');
@@ -11,17 +12,13 @@ const WebcamCapture = () => {
   };
 
   const handleSendImage = async () => {
-    
     try {
-      const response = await fetch(`https://localhost:7017/api/Folder/folderExists/${selectedFolder}`);
-      const exists = await response.json();
+      const exists = await fetchIfFolderExists(selectedFolder);
       await sendImageToBackend(selectedFolder, base64Image);
 
       if (!exists) {
-        // Add the new folder to the folders list
         setFolders(prevFolders => [...prevFolders, selectedFolder]);       
       }
-
       setSelectedFolder('');
     } catch (error) {
       console.error('Error checking or adding folder:', error);
