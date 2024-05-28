@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { sendImageToBackend } from './SendPicture';
 import { fetchIfFolderExists } from './api/FetchIfFolderExists';
+import { fetchAllFolders } from './api/FetchAllFolders';
 
 const WebcamCapture = () => {
   const [selectedFolder, setSelectedFolder] = useState('');
@@ -26,11 +27,9 @@ const WebcamCapture = () => {
   };
 
   useEffect(() => {
-    // Function to fetch folder options from API
     const fetchFolders = async () => {
       try {
-        const response = await fetch('https://localhost:7017/api/Folder'); // Adjust the API endpoint as necessary
-        const data = await response.json();
+        const data = await fetchAllFolders();
         setFolders(data);
       } catch (error) {
         console.error('Error fetching folders:', error);
