@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import WebcamCapture from "./WebcamStream";
+import WebcamCapturePicture from "./WebcamStream";
 
 const App = () => {
     return (
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<WebcamCapture />}>
+            <Route path="/" element={<WebcamCapturePicture />}>
             </Route>
           </Routes>
         </BrowserRouter>

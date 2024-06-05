@@ -1,8 +1,8 @@
-export async function sendImageToBackend(folderName, base64Image) {
+export async function sendImageToBackend(folderName, imgSrc) {
     const url = 'https://localhost:7017/api/Image'; // Replace with your actual backend URL
     const data = {
         folderName: folderName,
-        imageData: base64Image
+        imageData: imgSrc
     };
 
     await manageSendImageResponse(url, data)
