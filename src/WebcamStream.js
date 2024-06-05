@@ -1,5 +1,4 @@
 import React, { useState, useRef,useEffect, useCallback } from 'react';
-import { Buffer } from 'buffer';
 import { sendImageToBackend } from './SendPicture';
 import { fetchIfFolderExists } from './api/FetchIfFolderExists';
 import { fetchAllFolders } from './api/FetchAllFolders';
@@ -22,14 +21,14 @@ const WebcamCapturePicture = () => {
 
   const capture = useCallback(async () => {
     const imageSrc = await webcamRef.current.getScreenshot();
-    setImgSrc(imageSrc); // Update imgSrc
+    setImgSrc(imageSrc);
   }, [webcamRef]);
 
   useEffect(() => {
     if (imgSrc) {
       takePictureIfFolderNotNull();
     }
-  }, [imgSrc]); // Only run when imgSrc changes
+  }, [imgSrc]);
 
   const handleShowImage = () =>{
     setShowImage(true);
@@ -38,7 +37,6 @@ const WebcamCapturePicture = () => {
 
   const saveImageAndShowPicture = async() =>{
     const exists = await fetchIfFolderExists(selectedFolder);
-    // await sendImageToBackend(selectedFolder, base64Image);
     await sendImageToBackend(selectedFolder, imgSrc);
 
     if (!exists) {
