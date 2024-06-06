@@ -75,8 +75,15 @@ const WebcamCapturePicture = () => {
   }, []); 
 
   const startCountdown = () => {
-    setCountdown(5);
-    setIsCountingDown(true);
+
+    if(selectedFolder !== ''){
+      setFolderIsNull(false);
+      setCountdown(5);
+      setIsCountingDown(true);
+    }
+    else{
+      setFolderIsNull(true);
+    }
   };
 
   useEffect(() => {
