@@ -118,7 +118,7 @@ const WebcamCapturePicture = () => {
         ))}
       </datalist>
       <button onClick={startCountdown}>Capture photo</button>
-      {isCountingDown && <div>Taking photo in: {countdown} seconds</div>}
+      {isCountingDown && <div id='counter'>{countdown}</div>}
       <Webcam ref={webcamRef} />
       {showImage && (
         <div>
