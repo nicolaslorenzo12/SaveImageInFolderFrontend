@@ -8,12 +8,12 @@ import Webcam from "react-webcam"
 const WebcamCapturePicture = () => {
   const [selectedFolder, setSelectedFolder] = useState('');
   const [folders, setFolders] = useState([]);
-
   const [folderIsNull, setFolderIsNull] = useState(false)
   const [showImage, setShowImage] = useState(false);
-
   const webcamRef = useRef(null);
   const [imgSrc, setImgSrc] = useState('');
+  const [countdown, setCountdown] = useState(0);
+  const [isCountingDown, setIsCountingDown] = useState(false)
 
   const handleFolderChange = (event) => {
     setSelectedFolder(event.target.value);
@@ -74,39 +74,50 @@ const WebcamCapturePicture = () => {
     fetchFolders();
   }, []); 
 
+  const startCountdown = () => {
+    setCountdown(5);
+    setIsCountingDown(true);
+  };
+
+  useEffect(() => {
+    if (isCountingDown && countdown > 0) {
+      const timer = setTimeout(() => {
+        setCountdown(prevCountdown => prevCountdown - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else if (isCountingDown && countdown === 0) {
+      capture();
+      setIsCountingDown(false);
+    }
+  }, [isCountingDown, countdown, capture]);
+
   return (
     <div>
       <h1>Webcam Capture</h1>
       <label htmlFor="dropdown">Choose existing folder:</label>
       <div>
-        <input 
-          list="options" 
-          id="dropdown" 
-          value={selectedFolder} 
+        <input
+          list="options"
+          id="dropdown"
+          value={selectedFolder}
           onChange={handleFolderChange}
           autoComplete="off"
         />
-        {folderIsNull && <p id="folder-is-null">Folder can not be null</p>}
+        {folderIsNull && <p id="folder-is-null">Folder cannot be null</p>}
       </div>
       <datalist id="options">
         {folders.map((folder, index) => (
           <option key={index} value={folder} />
         ))}
       </datalist>
-      {/* <button onClick={takePictureIfFolderNotNull}>Send Image to Backend</button> */}
-      <button onClick={capture}>Capture photo</button>
-      <Webcam ref={webcamRef}/>
-      {/* {showImage && (
-      <div>
-        <img src={`data:image/jpg;base64,${base64Image}`} alt="" />
-      </div>
-    )} */}
-
-{showImage && (
-      <div>
-        <img src={`${imgSrc}`} alt="" />
-      </div>
-    )}
+      <button onClick={startCountdown}>Capture photo</button>
+      {isCountingDown && <div>Taking photo in: {countdown} seconds</div>}
+      <Webcam ref={webcamRef} />
+      {showImage && (
+        <div>
+          <img src={imgSrc} alt="" />
+        </div>
+      )}
     </div>
   );
 }
