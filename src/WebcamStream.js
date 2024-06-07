@@ -19,14 +19,14 @@ const WebcamCapturePicture = () => {
     setSelectedFolder(event.target.value);
   };
 
-  const capture = useCallback(async () => {
+  const capturePicture = useCallback(async () => {
     const imageSrc = await webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
   }, [webcamRef]);
 
   useEffect(() => {
     if (imgSrc) {
-      takePictureIfFolderNotNull();
+      takePicture();
     }
   }, [imgSrc]);
 
@@ -47,7 +47,7 @@ const WebcamCapturePicture = () => {
     handleShowImage();
   }
 
-  const takePictureIfFolderNotNull = async () => {
+  const takePicture = async () => {
     try {
         await saveImageAndShowPicture()
     } catch (error) {
@@ -87,10 +87,10 @@ const WebcamCapturePicture = () => {
       }, 1000);
       return () => clearTimeout(timer);
     } else if (isCountingDown && countdown === 0) {
-      capture();
+      capturePicture();
       setIsCountingDown(false);
     }
-  }, [isCountingDown, countdown, capture]);
+  }, [isCountingDown, countdown, capturePicture]);
 
   return (
     <div>
