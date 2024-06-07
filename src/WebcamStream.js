@@ -26,7 +26,7 @@ const WebcamCapturePicture = () => {
 
   useEffect(() => {
     if (imgSrc) {
-      takePicture();
+      saveImageAndShowPicture();
     }
   }, [imgSrc]);
 
@@ -35,21 +35,29 @@ const WebcamCapturePicture = () => {
     setTimeout(() => setShowImage(false), 5000);
   }
 
-  const saveImageAndShowPicture = async() =>{
-    const exists = await fetchIfFolderExists(selectedFolder);
-    await sendImageToBackend(selectedFolder, imgSrc);
+  // const saveImageAndShowPicture = async() =>{
+  //   const exists = await fetchIfFolderExists(selectedFolder);
+  //   await sendImageToBackend(selectedFolder, imgSrc);
 
-    if (!exists) {
-      setFolders(prevFolders => [...prevFolders, selectedFolder]);       
-    }
-    setSelectedFolder('');
-    setFolderIsNull(false);
-    handleShowImage();
-  }
+  //   if (!exists) {
+  //     setFolders(prevFolders => [...prevFolders, selectedFolder]);       
+  //   }
+  //   setSelectedFolder('');
+  //   setFolderIsNull(false);
+  //   handleShowImage();
+  // }
 
-  const takePicture = async () => {
+  const saveImageAndShowPicture = async () => {
     try {
-        await saveImageAndShowPicture()
+      const exists = await fetchIfFolderExists(selectedFolder);
+      await sendImageToBackend(selectedFolder, imgSrc);
+  
+      if (!exists) {
+        setFolders(prevFolders => [...prevFolders, selectedFolder]);       
+      }
+      setSelectedFolder('');
+      setFolderIsNull(false);
+      handleShowImage();
     } catch (error) {
       console.error('Error checking or adding folder:', error);
     }
