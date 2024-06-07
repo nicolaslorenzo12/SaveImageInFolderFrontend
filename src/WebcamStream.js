@@ -49,13 +49,7 @@ const WebcamCapturePicture = () => {
 
   const takePictureIfFolderNotNull = async () => {
     try {
-
-      if(selectedFolder === ''){
-          setFolderIsNull(true);
-      }
-      else{
         await saveImageAndShowPicture()
-    }
     } catch (error) {
       console.error('Error checking or adding folder:', error);
     }
