@@ -1,9 +1,8 @@
-import React, { useState, useRef,useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import WebcamCaptureForm from './WebcamCaptureForm';
 import { sendImageToBackend } from './SendPicture';
 import { fetchIfFolderExists } from './api/FetchIfFolderExists';
 import { fetchAllFolders } from './api/FetchAllFolders';
-import '../src/style/style.css'
-import Webcam from "react-webcam"
 
 const WebcamCapturePicture = () => {
   const [selectedFolder, setSelectedFolder] = useState('');
@@ -35,18 +34,6 @@ const WebcamCapturePicture = () => {
     setTimeout(() => setShowImage(false), 5000);
   }
 
-  // const saveImageAndShowPicture = async() =>{
-  //   const exists = await fetchIfFolderExists(selectedFolder);
-  //   await sendImageToBackend(selectedFolder, imgSrc);
-
-  //   if (!exists) {
-  //     setFolders(prevFolders => [...prevFolders, selectedFolder]);       
-  //   }
-  //   setSelectedFolder('');
-  //   setFolderIsNull(false);
-  //   handleShowImage();
-  // }
-
   const saveImageAndShowPicture = async () => {
     try {
       const exists = await fetchIfFolderExists(selectedFolder);
@@ -77,7 +64,6 @@ const WebcamCapturePicture = () => {
   }, []); 
 
   const startCountdown = () => {
-
     if(selectedFolder !== ''){
       setFolderIsNull(false);
       setCountdown(5);
@@ -101,34 +87,18 @@ const WebcamCapturePicture = () => {
   }, [isCountingDown, countdown, capturePicture]);
 
   return (
-    <div>
-      <h1>Webcam Capture</h1>
-      <label htmlFor="dropdown">Choose existing folder:</label>
-      <div>
-        <input
-          list="options"
-          id="dropdown"
-          value={selectedFolder}
-          onChange={handleFolderChange}
-          autoComplete="off"
-        />
-        {folderIsNull && <p id="folder-is-null">Folder cannot be null</p>}
-      </div>
-      <datalist id="options">
-        {folders.map((folder, index) => (
-          <option key={index} value={folder} />
-        ))}
-      </datalist>
-      <button onClick={startCountdown}>Capture photo</button>
-      {isCountingDown && <div id='counter'>{countdown}</div>}
-      <Webcam ref={webcamRef} />
-      {showImage && (
-        <div>
-          <img src={imgSrc} alt="" />
-        </div>
-      )}
-    </div>
+    <WebcamCaptureForm
+      selectedFolder={selectedFolder}
+      folderIsNull={folderIsNull}
+      handleFolderChange={handleFolderChange}
+      folders={folders}
+      startCountdown={startCountdown}
+      isCountingDown={isCountingDown}
+      countdown={countdown}
+      webcamRef={webcamRef}
+      showImage={showImage}
+      imgSrc={imgSrc}
+    />
   );
 }
-
 export default WebcamCapturePicture;
