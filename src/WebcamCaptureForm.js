@@ -7,7 +7,7 @@ const WebcamCaptureForm = ({
   folderIsNull,
   handleFolderChange,
   folders,
-  startCountdown,
+  startCountdownWhenClickingButtonIfSelectedFolderNotNull,
   isCountingDown,
   countdown,
   webcamRef,
@@ -33,7 +33,7 @@ const WebcamCaptureForm = ({
           <option key={index} value={folder} />
         ))}
       </datalist>
-      <button onClick={startCountdown}>Capture photo</button>
+      <button onClick={startCountdownWhenClickingButtonIfSelectedFolderNotNull}>Capture photo</button>
       {isCountingDown && <div id='counter'>{countdown}</div>}
       <Webcam ref={webcamRef} />
       {showImage && (
