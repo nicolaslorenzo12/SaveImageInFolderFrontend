@@ -1,4 +1,6 @@
+import config from "../Config";
+
 export async function fetchIfFolderExists(selectedFolder){
-    const response = await fetch(`https://localhost:7017/api/Folder/folderExists/${selectedFolder}`);
+    const response = await fetch(`${config.apiBaseUrl}/Folder/folderExists/${selectedFolder}`);
     return await response.json();
 }

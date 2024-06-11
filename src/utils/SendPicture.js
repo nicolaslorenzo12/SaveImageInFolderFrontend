@@ -1,5 +1,5 @@
 export async function sendImageToBackend(folderName, imgSrc) {
-    const url = 'https://localhost:7017/api/Image'; // Replace with your actual backend URL
+    const url = 'https://localhost:7017/api/Image';
     const data = {
         folderName: folderName,
         imageData: imgSrc
