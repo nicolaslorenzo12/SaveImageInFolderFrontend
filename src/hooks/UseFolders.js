@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { fetchIfFolderExists } from './api/FetchIfFolderExists';
-import { fetchAllFolders } from './api/FetchAllFolders';
-import { sendImageToBackend } from './SendPicture';
+import { fetchIfFolderExists } from '../api/FetchIfFolderExists';
+import { fetchAllFolders } from '../api/FetchAllFolders';
+import { sendImageToBackend } from '../utils/SendPicture.js';
 
 export const useFolders = (selectedFolder) => {
   const [folders, setFolders] = useState([]);

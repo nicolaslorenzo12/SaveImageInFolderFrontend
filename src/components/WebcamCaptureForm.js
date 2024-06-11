@@ -1,6 +1,6 @@
 import React from 'react';
 import Webcam from "react-webcam"
-import '../src/style/style.css'
+import '../style/style.css'
 
 const WebcamCaptureForm = ({
   selectedFolder,

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import WebcamCapturePicture from "./WebcamStream";
+import WebcamCapturePicture from "./components/WebcamStream";
 
 const App = () => {
     return (

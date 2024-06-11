@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import WebcamCaptureForm from './WebcamCaptureForm';
-import { useFolders } from './UseFolders';
-import { useCountdown } from './UseCountdown';
+import { useFolders } from '../hooks/UseFolders';
+import { useCountdown } from '../hooks/UseCountdown';
 
 const WebcamCapturePicture = () => {
   const [selectedFolder, setSelectedFolder] = useState('');
