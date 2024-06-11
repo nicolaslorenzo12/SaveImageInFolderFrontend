@@ -25,7 +25,7 @@ const WebcamCapturePicture = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [selectedFolder, startCountdown]);
+  }, [selectedFolder]);
 
   const startCountdownIfSelectedFolderNotNull = () => {
     if (selectedFolder !== '') {
@@ -62,7 +62,7 @@ const WebcamCapturePicture = () => {
     };
 
     saveImage();
-  }, [imgSrc, readyToSave, saveImageAndShowPicture, handleShowImage]);
+  }, [readyToSave]);
 
   return (
     <WebcamCaptureForm

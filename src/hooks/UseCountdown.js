@@ -14,7 +14,7 @@ export const useCountdown = (initialCount, onComplete) => {
       onComplete();
       setIsCountingDown(false);
     }
-  }, [isCountingDown, countdown, onComplete]);
+  }, [isCountingDown, countdown]);
 
   const startCountdown = () => {
     setCountdown(initialCount);
