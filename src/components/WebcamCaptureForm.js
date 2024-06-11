@@ -13,6 +13,7 @@ const WebcamCaptureForm = ({
   webcamRef,
   showImage,
   imgSrc,
+  showStream,
 }) => {
   return (
     <div>
@@ -35,7 +36,9 @@ const WebcamCaptureForm = ({
       </datalist>
       <button onClick={startCountdownWhenClickingButtonIfSelectedFolderNotNull}>Capture photo</button>
       {isCountingDown && <div id='counter'>{countdown}</div>}
-      <Webcam ref={webcamRef} />
+      <div>
+        {showStream && <Webcam ref={webcamRef} />}
+      </div>
       {showImage && (
         <div>
           <img src={imgSrc} alt="" />

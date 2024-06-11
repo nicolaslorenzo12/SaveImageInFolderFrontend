@@ -8,9 +8,10 @@ const WebcamCapturePicture = () => {
   const webcamRef = useRef(null);
   const [imgSrc, setImgSrc] = useState('');
   const [showImage, setShowImage] = useState(false);
+  const [showStream, setShowStream] = useState(true);
   const [readyToSave, setReadyToSave] = useState(false);
 
-  const { folders, folderIsNull, setFolderIsNull, saveImageAndShowPicture } = useFolders(selectedFolder);
+  const { folders, folderIsNull, setFolderIsNull, saveImage } = useFolders(selectedFolder);
   const { countdown, isCountingDown, startCountdown } = useCountdown(5, async () => await capturePicture());
 
   useEffect(() => {
@@ -48,20 +49,24 @@ const WebcamCapturePicture = () => {
 
   const handleShowImage = useCallback(() => {
     setShowImage(true);
-    setTimeout(() => setShowImage(false), 5000);
+    setShowStream(false);
+    setTimeout(() => {
+      setShowImage(false);
+      setShowStream(true); // Show the stream after hiding the image
+    }, 5000);
   }, []);
 
   useEffect(() => {
-    const saveImage = async () => {
+    const addImage = async () => {
       if (imgSrc && readyToSave) {
-        await saveImageAndShowPicture(imgSrc, handleShowImage);
+        await saveImage(imgSrc, handleShowImage);
         handleShowImage();
         setSelectedFolder('');
         setReadyToSave(false);
       }
     };
 
-    saveImage();
+    addImage();
   }, [readyToSave]);
 
   return (
@@ -76,6 +81,7 @@ const WebcamCapturePicture = () => {
       webcamRef={webcamRef}
       showImage={showImage}
       imgSrc={imgSrc}
+      showStream={showStream}
     />
   );
 };

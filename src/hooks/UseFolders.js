@@ -20,7 +20,7 @@ export const useFolders = (selectedFolder) => {
     fetchFolders();
   }, []);
 
-  const saveImageAndShowPicture = async (imageSrc) => {
+  const saveImage = async (imageSrc) => {
     try {
       const exists = await fetchIfFolderExists(selectedFolder);
       await sendImageToBackend(selectedFolder, imageSrc);
@@ -37,6 +37,6 @@ export const useFolders = (selectedFolder) => {
     folders,
     folderIsNull,
     setFolderIsNull,
-    saveImageAndShowPicture,
+    saveImage,
   };
 };
