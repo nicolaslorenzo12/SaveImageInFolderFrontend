@@ -71,7 +71,6 @@ const WebcamCapturePicture = () => {
         await saveImage(imgSrc);
         setShowImage(true);
         toggleShowImageShowStreamAndShowButtons();
-        // setSelectedFolder('');
         setReadyToSave(false);
       }
     };
