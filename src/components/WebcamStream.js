@@ -42,11 +42,11 @@ const WebcamCapturePicture = () => {
     setSelectedFolder(event.target.value);
   };
 
-  const capturePicture = useCallback(async () => {
+  const capturePicture = async() => {
     const imageSrc = await webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
     toggleShowImageShowStreamAndShowButtons();
-  }, []);
+  };
 
   const toggleShowImageShowStreamAndShowButtons = () => {
    if(showImage){
