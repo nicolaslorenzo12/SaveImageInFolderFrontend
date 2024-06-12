@@ -27,3 +27,8 @@
     outline: none;
     color: white;
 }
+
+#image-saved-message{
+    color:green;
+    font-size: 50px;
+}

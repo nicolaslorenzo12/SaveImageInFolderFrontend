@@ -10,7 +10,8 @@ const WebcamCapturePicture = () => {
   const [showImage, setShowImage] = useState(false);
   const [showStream, setShowStream] = useState(true);
   const [readyToSave, setReadyToSave] = useState(false);
-  const [showButtons, setShowButtons] = useState(false)
+  const [showButtons, setShowButtons] = useState(false);
+  const [showSavedImageMessage, setShowSavedImageMessage] = useState(false);
 
   const { folders, folderIsNull, setFolderIsNull, saveImage } = useFolders(selectedFolder);
   const { countdown, isCountingDown, startCountdown } = useCountdown(5, async () => await capturePicture());
@@ -72,11 +73,20 @@ const WebcamCapturePicture = () => {
         setShowImage(true);
         toggleShowImageShowStreamAndShowButtons();
         setReadyToSave(false);
+        showSavedImageMessageFor5Seconds();
       }
     };
 
     addImage();
   }, [readyToSave]);
+
+  const showSavedImageMessageFor5Seconds = () =>{
+    setShowSavedImageMessage(true);
+
+    setTimeout(() => {
+        setShowSavedImageMessage(false);
+    }, 5000);
+  }
 
   return (
     <WebcamCaptureForm
@@ -94,6 +104,7 @@ const WebcamCapturePicture = () => {
       showButtons={showButtons}
       setImageToBeSaved={setImageToBeSaved}
       toggleShowImageShowStreamAndShowButtons={toggleShowImageShowStreamAndShowButtons}
+      showSavedImageMessage={showSavedImageMessage}
     />
   );
 };

@@ -17,6 +17,7 @@ const WebcamCaptureForm = ({
   showButtons,
   setImageToBeSaved,
   toggleShowImageShowStreamAndShowButtons,
+  showSavedImageMessage,
 }) => {
   return (
     <div>
@@ -51,6 +52,7 @@ const WebcamCaptureForm = ({
         {showButtons && <button onClick={setImageToBeSaved} id="save-image-button">Save image</button>}
         {showButtons && <button onClick={toggleShowImageShowStreamAndShowButtons} id="discard-image-button">Discard image</button>}
       </div>
+      {showSavedImageMessage && <p id="image-saved-message">Image was successfully saved!</p>}
     </div>
   );
 };
