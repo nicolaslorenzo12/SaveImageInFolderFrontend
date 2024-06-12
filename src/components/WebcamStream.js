@@ -45,24 +45,32 @@ const WebcamCapturePicture = () => {
   const capturePicture = useCallback(async () => {
     const imageSrc = await webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
-    setReadyToSave(true);
+    toggleShowImageShowStreamAndShowButtons();
   }, []);
 
-  const handleShowImage = useCallback(() => {
+  const toggleShowImageShowStreamAndShowButtons = () => {
+   if(showImage){
+    setShowImage(false);
+    setShowStream(true);
+    setShowButtons(false);
+   }
+   else{
     setShowImage(true);
     setShowStream(false);
-    // setTimeout(() => {
-    //   setShowImage(false);
-    //   setShowStream(true); // Show the stream after hiding the image
-    // }, 5000);
     setShowButtons(true);
-  }, []);
+   }
+  };
+
+  const setImageToBeSaved = () =>{
+    setReadyToSave(true);
+  }
 
   useEffect(() => {
     const addImage = async () => {
       if (imgSrc && readyToSave) {
-        await saveImage(imgSrc, handleShowImage);
-        handleShowImage();
+        await saveImage(imgSrc);
+        setShowImage(true);
+        toggleShowImageShowStreamAndShowButtons();
         setSelectedFolder('');
         setReadyToSave(false);
       }
@@ -85,6 +93,7 @@ const WebcamCapturePicture = () => {
       imgSrc={imgSrc}
       showStream={showStream}
       showButtons={showButtons}
+      setImageToBeSaved={setImageToBeSaved}
     />
   );
 };
