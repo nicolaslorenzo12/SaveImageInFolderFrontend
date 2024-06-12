@@ -22,7 +22,6 @@ const WebcamCapturePicture = () => {
         event.preventDefault();
       }
     };
-
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
@@ -53,6 +52,7 @@ const WebcamCapturePicture = () => {
     setShowImage(false);
     setShowStream(true);
     setShowButtons(false);
+    setSelectedFolder('');
    }
    else{
     setShowImage(true);
@@ -71,7 +71,7 @@ const WebcamCapturePicture = () => {
         await saveImage(imgSrc);
         setShowImage(true);
         toggleShowImageShowStreamAndShowButtons();
-        setSelectedFolder('');
+        // setSelectedFolder('');
         setReadyToSave(false);
       }
     };
@@ -94,6 +94,7 @@ const WebcamCapturePicture = () => {
       showStream={showStream}
       showButtons={showButtons}
       setImageToBeSaved={setImageToBeSaved}
+      toggleShowImageShowStreamAndShowButtons={toggleShowImageShowStreamAndShowButtons}
     />
   );
 };
