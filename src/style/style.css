@@ -9,3 +9,21 @@
 #counter{
     font-size: 100px;
 }
+
+#buttons-to-save-or-discard-image{
+    display: flex;
+}
+
+#save-image-button{
+    background-color: green;
+    border: none;
+    outline: none;
+    color: white;
+}
+
+#discard-image-button{
+    background-color: red;
+    border: none;
+    outline: none;
+    color: white;
+}

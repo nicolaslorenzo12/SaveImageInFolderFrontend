@@ -10,6 +10,7 @@ const WebcamCapturePicture = () => {
   const [showImage, setShowImage] = useState(false);
   const [showStream, setShowStream] = useState(true);
   const [readyToSave, setReadyToSave] = useState(false);
+  const [showButtons, setShowButtons] = useState(false)
 
   const { folders, folderIsNull, setFolderIsNull, saveImage } = useFolders(selectedFolder);
   const { countdown, isCountingDown, startCountdown } = useCountdown(5, async () => await capturePicture());
@@ -50,10 +51,11 @@ const WebcamCapturePicture = () => {
   const handleShowImage = useCallback(() => {
     setShowImage(true);
     setShowStream(false);
-    setTimeout(() => {
-      setShowImage(false);
-      setShowStream(true); // Show the stream after hiding the image
-    }, 5000);
+    // setTimeout(() => {
+    //   setShowImage(false);
+    //   setShowStream(true); // Show the stream after hiding the image
+    // }, 5000);
+    setShowButtons(true);
   }, []);
 
   useEffect(() => {
@@ -82,6 +84,7 @@ const WebcamCapturePicture = () => {
       showImage={showImage}
       imgSrc={imgSrc}
       showStream={showStream}
+      showButtons={showButtons}
     />
   );
 };

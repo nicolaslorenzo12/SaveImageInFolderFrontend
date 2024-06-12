@@ -14,6 +14,7 @@ const WebcamCaptureForm = ({
   showImage,
   imgSrc,
   showStream,
+  showButtons,
 }) => {
   return (
     <div>
@@ -44,6 +45,10 @@ const WebcamCaptureForm = ({
           <img src={imgSrc} alt="" />
         </div>
       )}
+      <div id="buttons-to-save-or-discard-image">
+        {showButtons && <button id="save-image-button">Save image</button>}
+        {showButtons && <button id="discard-image-button">Discard image</button>}
+      </div>
     </div>
   );
 };
