@@ -121,7 +121,7 @@ const WebcamCaptureForm = ({
       </div>
       {isCountingDown && <div id='counter'>{countdown}</div>}
       <div id="webcam-container">
-        {showStream && <Webcam ref={webcamRef} videoConstraints={videoConstraints} />} {/* Apply videoConstraints here */}
+        {showStream && <Webcam ref={webcamRef} videoConstraints={videoConstraints} />}
       </div>
       {showImage && (
         <div id="captured-image">

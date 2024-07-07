@@ -80,6 +80,10 @@ button:hover {
   font-weight: bold;
 }
 
+video{
+  width: 700px;
+}
+
 #webcam-container {
   display: flex;
   justify-content: center;
