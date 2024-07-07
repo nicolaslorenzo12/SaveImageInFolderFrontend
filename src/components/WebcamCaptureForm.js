@@ -1,6 +1,6 @@
 // import React from 'react';
-// import Webcam from "react-webcam"
-// import '../style/style.css'
+// import Webcam from "react-webcam";
+// import '../style/style.css';
 
 // const WebcamCaptureForm = ({
 //   selectedFolder,
@@ -19,9 +19,9 @@
 // }) => {
 //   return (
 //     <div>
-//       <h1>Webcam Capture</h1>
-//       <label htmlFor="dropdown">Choose existing folder:</label>
-//       <div>
+//       <h1>Photo-Book</h1>
+//       <label htmlFor="dropdown">Choose folder:</label>
+//       <div id="dropdown-container">
 //         <input
 //           list="options"
 //           id="dropdown"
@@ -29,34 +29,39 @@
 //           onChange={handleFolderChange}
 //           autoComplete="off"
 //         />
-//         {folderIsNull && <p id="folder-is-null">Folder cannot be null</p>}
 //       </div>
+//       {folderIsNull && <p id="folder-is-null">Folder cannot be null</p>}
 //       <datalist id="options">
 //         {folders.map((folder, index) => (
 //           <option key={index} value={folder} />
 //         ))}
 //       </datalist>
-//       <button onClick={startCountdownWhenClickingButtonIfSelectedFolderNotNull}>Capture photo</button>
+//       <div id="button-container">
+//         <button onClick={startCountdownWhenClickingButtonIfSelectedFolderNotNull}>Capture photo</button>
+//       </div>
 //       {isCountingDown && <div id='counter'>{countdown}</div>}
-//       <div>
+//       <div id="webcam-container">
 //         {showStream && <Webcam ref={webcamRef} />}
 //       </div>
 //       {showImage && (
-//         <div>
-//           <img src={imgSrc} alt="" />
+//         <div id="captured-image">
+//           <img src={imgSrc} alt="Captured" />
 //         </div>
 //       )}
 
-//       <div id="last-five-images">
-//         {showLastFiveImages && lastFiveImages.map((image, index) => (
-//           <img key={index} src={`data:image/jpeg;base64,${image.data}`} alt={`Captured ${index}`} />
-//         ))}
+//       <div id="last-five-images-container">
+//         <div id="last-five-images">
+//           {showLastFiveImages && lastFiveImages.map((image, index) => (
+//             <img key={index} src={`data:image/jpeg;base64,${image.data}`} alt={`Captured ${index}`} />
+//           ))}
+//         </div>
 //       </div>
 //     </div>
 //   );
 // };
 
 // export default WebcamCaptureForm;
+
 
 
 
@@ -85,19 +90,25 @@ const WebcamCaptureForm = ({
   showStream,
   showLastFiveImages,
   lastFiveImages,
+  videoConstraints,
+  handleBlur,
+  showInputFolder
 }) => {
   return (
     <div>
       <h1>Photo-Book</h1>
-      <label htmlFor="dropdown">Choose folder:</label>
+      {showInputFolder && <label htmlFor="dropdown">Choose folder:</label> }
       <div id="dropdown-container">
+      {showInputFolder && (
         <input
           list="options"
           id="dropdown"
           value={selectedFolder}
           onChange={handleFolderChange}
+          onBlur={handleBlur}
           autoComplete="off"
         />
+      )}
       </div>
       {folderIsNull && <p id="folder-is-null">Folder cannot be null</p>}
       <datalist id="options">
@@ -110,7 +121,7 @@ const WebcamCaptureForm = ({
       </div>
       {isCountingDown && <div id='counter'>{countdown}</div>}
       <div id="webcam-container">
-        {showStream && <Webcam ref={webcamRef} />}
+        {showStream && <Webcam ref={webcamRef} videoConstraints={videoConstraints} />} {/* Apply videoConstraints here */}
       </div>
       {showImage && (
         <div id="captured-image">

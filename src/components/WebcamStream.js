@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import Webcam from "react-webcam";
 import WebcamCaptureForm from './WebcamCaptureForm';
 import { useFolders } from '../hooks/UseFolders';
 import { useCountdown } from '../hooks/UseCountdown';
@@ -12,6 +13,7 @@ const WebcamCapturePicture = () => {
   const [showStream, setShowStream] = useState(true);
   const [readyToSave, setReadyToSave] = useState(false);
   const [imageWasAdded, setImageWasAdded] = useState(false);
+  const [showInputFolder, setShowInputFolder] = useState(true);  
 
   const { folders, folderIsNull, setFolderIsNull, saveImage } = useFolders(selectedFolder);
   const { countdown, isCountingDown, startCountdown } = useCountdown(5, async () => await capturePicture());
@@ -45,7 +47,7 @@ const WebcamCapturePicture = () => {
   };
 
   const capturePicture = useCallback(async () => {
-    const imageSrc = await webcamRef.current.getScreenshot();
+    const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
     setReadyToSave(true);
   }, []);
@@ -58,6 +60,11 @@ const WebcamCapturePicture = () => {
       setShowStream(true); // Show the stream after hiding the image
     }, 5000);
   }, []);
+
+
+  const handleBlur = async () => {
+    setShowInputFolder(false);
+  };
 
   useEffect(() => {
     const addImage = async () => {
@@ -73,6 +80,11 @@ const WebcamCapturePicture = () => {
     setImageWasAdded(false);
   }, [readyToSave]);
 
+  const videoConstraints = {
+    width: { ideal: 4096 },
+    height: { ideal: 2160 },
+    facingMode: "user"
+  };
 
   return (
     <WebcamCaptureForm
@@ -89,7 +101,19 @@ const WebcamCapturePicture = () => {
       showStream={showStream}
       showLastFiveImages={showLastFiveImages}
       lastFiveImages={lastFiveImages}
-    />
+      handleBlur={handleBlur}
+      showInputFolder={showInputFolder}
+    >
+      {showStream && (
+        <Webcam
+          audio={false}
+          ref={webcamRef}
+          screenshotFormat="image/png"
+          videoConstraints={videoConstraints}
+          onUserMediaError={(error) => console.error('Webcam error:', error)}
+        />
+      )}
+    </WebcamCaptureForm>
   );
 };
 
